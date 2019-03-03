@@ -1,0 +1,896 @@
+\documentclass[a4paper,14pt]{article}
+
+%\includeonly{topics/t2,topics/t3} % компилировать только указанные главы
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+
+\usepackage{polyglossia}
+\setmainlanguage{russian} 
+\setotherlanguage{english}
+
+% XeLaTeX can use any font installed in your system fonts folder
+% Linux Libertine in the next line can be replaced with any 
+% OpenType or TrueType font that supports the Cyrillic script.
+
+\newfontfamily\russianfont[Script=Cyrillic]{Linux Libertine}
+
+\frenchspacing
+%\usepackage{fontspec} 
+%\setmainfont[Ligatures={TeX,Historic}]{Times New Roman}
+
+%%%\usepackage{fancyhdr} % {\tiny  }Колонтитулы 
+%\pagestyle{fancy} 
+%\renewcommand{\headrulewidth}{0mm} % Толщина линейки, отчеркивающей верхний колонтитул 
+%\lfoot{Нижний левый} 
+%\rfoot{Нижний правый} 
+%\rhead{Верхний правый} 
+%\chead{Верхний в центре} 
+%\lhead{Верхний левый} 
+% \cfoot{Нижний в центре} % По умолчанию здесь номер страницы 
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+%\usepackage{ dsfont } % more math fonts!
+%\renewcommand{\epsilon}{\ensuremath{\varepsilon}}
+%\renewcommand{\phi}{\ensuremath{\varphi}}
+%\renewcommand{\kappa}{\ensuremath{\varkappa}}
+%\renewcommand{\le}{\ensuremath{\leqslant}}
+\renewcommand{\leq}{\ensuremath{\leqslant}}
+%\renewcommand{\ge}{\ensuremath{\geqslant}}
+\renewcommand{\geq}{\ensuremath{\geqslant}}
+%\renewcommand{\emptyset}{\varnothing}
+
+%% Номера формул
+%\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+%\usepackage{leqno} % Нумереация формул слева
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{crimeimages/}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+%\usepackage{wrapfig} % Обтекание рисунков текстом
+
+\usepackage{indentfirst}
+
+
+
+
+
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+	{\hbox{$\mathsurround=0pt #1$}}{}}
+
+\newcommand{\source}[1]{\small{Источник: #1}}
+
+%%% Страница
+\usepackage{extsizes} % Возможность сделать 14-й шрифт
+\usepackage{geometry} % Простой способ задавать поля
+\geometry{top=20mm}
+\geometry{bottom=20mm}
+\geometry{left=35mm}
+\geometry{right=15mm}
+%
+%\usepackage{fancyhdr} % Колонтитулы
+% 	\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}  % Толщина линейки, отчеркивающей верхний колонтитул
+% 	\lfoot{Нижний левый}
+% 	\rfoot{Нижний правый}
+% 	\rhead{Верхний правый}
+% 	\chead{Верхний в центре}
+% 	\lhead{Верхний левый}
+%	\cfoot{Нижний в центре} % По умолчанию здесь номер страницы
+
+\usepackage{setspace} % Интерлиньяж
+\onehalfspacing % Интерлиньяж 1.5
+%\doublespacing % Интерлиньяж 2
+%\singlespacing % Интерлиньяж 1
+
+\usepackage{lastpage} % Узнать, сколько всего страниц в документе.
+%\usepackage{soul} % Модификаторы начертания
+
+\usepackage{hyperref}
+\usepackage[usenames,dvipsnames,svgnames,table,rgb]{xcolor}
+\hypersetup{				% Гиперссылки
+	unicode=true,           % русские буквы в раздела PDF
+	%	pdftitle={Заголовок},   % Заголовок
+	%	pdfauthor={Автор},      % Автор
+	%	pdfsubject={Тема},      % Тема
+	%	pdfcreator={Создатель}, % Создатель
+	%	pdfproducer={Производитель}, % Производитель
+	%	pdfkeywords={keyword1} {key2} {key3}, % Ключевые слова
+	colorlinks=true,       	% false: ссылки в рамках; true: цветные ссылки
+	linkcolor=blue,          % внутренние ссылки
+	citecolor=blue,        % на библиографию
+	filecolor=magenta,      % на файлы
+	urlcolor=ForestGreen           % на URL
+}
+
+
+% \usepackage{csquotes} % Еще инструменты для ссылок
+%\usepackage[style=authoryear,maxcitenames=2,backend=biber,sorting=nty]{biblatex}
+\usepackage{multicol} % Несколько колонок
+\usepackage{listings}
+%%% Программирование
+\usepackage{etoolbox} % логические операторы
+%\usepackage[style=authoryear,maxcitenames=2,backend=biber,sorting=nty]{biblatex}
+
+\usepackage{tikz} % Работа с графикой
+% \usepackage{pgfplots}
+% \usepackage{pgfplotstable}
+
+% % % Для работы с report
+%\renewcommand{\chaptername}{Глава}
+
+
+\usepackage{cite} % Работа с библиографией
+%\usepackage[superscript]{cite} % Ссылки в верхних индексах
+%\usepackage[nocompress]{cite} % 
+%\usepackage{csquotes} % Еще инструменты для ссылок
+
+% \usepackage{natbib} %библиография плюс https://ru.wikibooks.org/wiki/LaTeX/%D0%A3%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B5%D0%B9
+%\bibliographystyle{rmpaps} 
+
+
+%%%% Работа со списками
+%\usepackage{enumitem} %%% дополнительная работа со списками. !а может и неправильно написано — гугли
+\usepackage{paralist}										% compact lists
+
+\renewcommand{\citeleft}{(}
+\renewcommand{\citeright}{)}
+
+\usepackage{adjustbox} 
+\addto\captionsrussian{% Replace "english" with the language you use
+	\renewcommand{\contentsname}%
+	{Оглавление}%
+}
+
+\author{Борис Цейтлин}
+\title{Computational Linguistics and Text Analysis hw1}
+
+   % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+  %  \usepackage{upquote} % Upright quotes for verbatim code
+%    \usepackage{eurosym} % defines \euro
+%    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+%    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+   \usepackage{longtable} % longtable support required by pandoc >1.10
+   \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{listinggray}{gray}{0.5}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+\setmonofont{Ubuntu Mono}
+\renewcommand*\lstlistingname{Listing}
+
+\lstset{
+  % backgroundcolor=\color{lbcolor},
+  tabsize=4,
+  rulecolor=,
+  language=Python,
+  literate={<-}{\texttt{<-}}{1},
+  basicstyle=\scriptsize\ttfamily,
+  upquote=true,
+  aboveskip={1\baselineskip},
+  columns=fixed,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  mathescape=false,
+  prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+  frame=tb,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  keywordstyle=\color[rgb]{0, 0, 1},
+  commentstyle=\color[rgb]{0.133, 0.545, 0.133},
+  stringstyle=\color[rgb]{0.627, 0.126, 0.941},
+  alsoletter={.}
+}
+
+
+
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Computational Linguistics and Text Analysis hw1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+
+
+	\thispagestyle{empty}    % +1 - это титульный лист
+	
+	\begin{center}
+		
+		
+		THE RUSSIAN GOVERNMENT \\
+		FEDERAL STATE AUTONOMUS EDUCATIONAL INSTITUTION \\ FOR HIGHER PROFESSIONAL EDUCATION \\ NATIONAL RESEARCH UNIVERSITY \\ ''HIGHER SCHOOL OF ECONOMICS''
+		
+		\large
+		\vspace{2 cm}
+		%	\textsf{
+		%	Факультет экономических наук
+		%	\\ Образовательная программа «Экономика» %}           %ТЕКСТ БЕЗ ЗАСЕЧЕК
+	\end{center}
+	
+	\vspace{2 cm}
+	\begin{center}
+		%	\vspace{13ex}
+		\vspace{1 cm} \textbf{Компьютерная лингвистика и анализ текста} \\ \vspace{0.5 cm} Домашняя работа 1 \\ Вариант F 
+		\\ Исследование качества разрешения морфологической омонимии \textit{pymorhpy2}
+		
+	\end{center}
+	
+	\vspace{2 cm}
+	
+	\begin{flushright}
+		%	\noindent
+		{  Boris Tseitlin }
+		
+		\vspace{1 cm}
+		
+		{ \textbf{"Науки о данных" } \\ 1 курс\\
+			Факультет Компьютерных Наук }
+	\end{flushright}
+	
+	\begin{center}
+		\vfill
+		Москва 2019
+	\end{center}
+	
+	\newpage
+	\tableofcontents
+	\newpage
+	
+	
+	\section{Введение}
+	
+	В данном исследовании рассматривается качество разрешения морфологической омонимии морфоанализатора русского языка \textit{pymorphy2}.
+Исследование проводится с помощью размеченных текстов со снятой омонимией из корпуса \textit{OpenCorpora}.  Рассматривается омонимия по частям речи, морфологическим признакам и лемме.
+
+	\subsection{Омонимия}
+
+	Морфологическая омонимия – совпадение форм одного и того же слова.
+
+
+	Рассмотрим для примера предложение: \begin{center}"Предметом обсуждения стали вопросы сотрудничества в международных организациях."\end{center}
+
+
+	Слово "стали" является морфологическим омонимом: это может быть существительное в родительном падеже, с нормальной формой "сталь", или глаголом в множественном числе с нормальной формой "стать". Морфологически анализаторы способы с некоторой точность автоматически разрешать омонимию.
+	\subsection{pymorphy2}
+
+	\textit{pymorhpy2} это морфологический анализатор для русского языка, распространяемый по лицензии MIT. Данный морфоанализатор использует словари на основе корпуса \textit{OpenCorpora}. Он способен разрешать морфологическую омонимию через статистические методы. Для омонима морфоанализатор предлагает несколько вариантов разбора, а так же оценку вероятности каждого из них.
+	\newpage
+	Например:
+		
+\begin{lstlisting}
+>>> import pymorphy2
+>>> morph = pymorphy2.MorphAnalyzer()
+>>> morph.parse('стали')
+[Parse(word='стали', tag=OpencorporaTag('VERB,perf,intr plur,past,indc'), normal_form='стать', score=0.983766, methods_stack=((<DictionaryAnalyzer>, 'стали', 884, 4),)),
+ Parse(word='стали', tag=OpencorporaTag('NOUN,inan,femn sing,gent'), normal_form='сталь', score=0.003246, methods_stack=((<DictionaryAnalyzer>, 'стали', 12, 1),)),
+ Parse(word='стали', tag=OpencorporaTag('NOUN,inan,femn sing,datv'), normal_form='сталь', score=0.003246, methods_stack=((<DictionaryAnalyzer>, 'стали', 12, 2),)),
+ Parse(word='стали', tag=OpencorporaTag('NOUN,inan,femn sing,loct'), normal_form='сталь', score=0.003246, methods_stack=((<DictionaryAnalyzer>, 'стали', 12, 5),)),
+ Parse(word='стали', tag=OpencorporaTag('NOUN,inan,femn plur,nomn'), normal_form='сталь', score=0.003246, methods_stack=((<DictionaryAnalyzer>, 'стали', 12, 6),)),
+ Parse(word='стали', tag=OpencorporaTag('NOUN,inan,femn plur,accs'), normal_form='сталь', score=0.003246, methods_stack=((<DictionaryAnalyzer>, 'стали', 12, 9),))]
+\end{lstlisting}
+	
+
+	\subsection{OpenCorpora}
+	\textit{OpenCorpora} это открытый корпус для русского языка. Он содержит, на данный момент, 108960 размеченных предложений, состоящих из 1966780. 
+	На следующем изображении представлены обозначения граммем в корпусе. Они совпадают с обозначениями, которые использует \textit{pymorphy}.
+	    \begin{center}
+		\adjustimage{max size={0.75\linewidth}{0.6\paperheight}}{img/1_3_grammemes.png}
+	    \end{center}
+
+	\subsection{Методология}
+	Перед нами стояла задача исследовать качество разрешения омонимии. Был взят подкорпус \textit{OpenCorpora} со снятой омонимией, состоящий из 68819 токенов. Для каждого токена мы сравнивали, как \textit{pymorphy2} разрешает омонимию с тем, как она была разрешена в подкорпусе.
+
+
+	Исследование производилось следующим образом:
+	\begin{enumerate}
+  		\item Каждый токен подкорпуса разбирался с помощью \textit{pymorhpy2}.
+  		\item Если \textit{pymorphy2} предлагал несколько возможных разборов токена, то токен считался омонимом.
+		\item Вариант разбора с наибольшим \textit{score} считался результатом разрешения омонимии от \textit{pymorhpy2}.
+		\item Омонимы, результаты разрешения омонимии и истинные значения по корпусу были сохранены в таблицу.
+		\item Таблица была проанализирована для определения качества разрешения омонимии.
+	\end{enumerate}
+
+	\section{Исследование}
+
+	\subsection{Формат данных}
+	Данные для анализа имели следующий вид:
+
+	\begin{center}
+		\fbox{\adjustimage{max size={1\linewidth}{0.9\paperheight}}{img/2_1_table.png}}
+    \end{center}
+	
+	\noindent
+	\textit{corpora\_lemma} - лемма по корпусу \\
+	\textit{morph\_lemma} - лемма согласно морфоанализатору \\
+	\textit{corpora\_pos} - часть речи по корпусу \\
+	\textit{morph\_pos} - часть речи согласно морфоанализатору \\
+	\textit{corpora\_g} - набор тегов по корпусу \\
+	\textit{morph\_g} - набор тегов согласно морфоанализатору \\
+	\noindent
+	Всего было проанализировано \textbf{6644} омонима.
+
+	\subsection{Разрешение омонимии по частям речи}
+	Когда слово может быть трактовано как разные части речи, мы считаем, что это омонимия по части речи (частерченая омонимия). Например слово "стали" является омонимом по части речи.
+
+	Для изучения разрешения частеречной омонимии мы составили тепловую карту:
+	\begin{center}
+		\fbox{\adjustimage{max size={1\linewidth}{0.9\paperheight}}{img/2_2_heatmap.png}}
+    \end{center}
+	
+	По вертикали на ней отложены части речи из корпуса, по горизонтали - части речи, распознанные морфоанализатором. Значения клеток на пересечении показывают число токенов. Например, карта показывает, что \textbf{3663} существительных из корпуса были корректно распознаны анализатором как существительные, но \textbf{53} существительных были распознаны как полные прилагательные.
+	По тепловой карте сразу видно, что большинство токенов это существительные, прилагательные и глаголы. Доля остальных частей в корпусе речи очень мала.
+
+	\begin{table}[h]
+		\begin{center}
+		\begin{tabular}{lrr}
+				\toprule
+				{} &  count &  errors \\
+				corpora\_pos &        &         \\
+				\midrule
+				ADJF        &   1661 &     255 \\
+				ADJS        &     23 &       9 \\
+				ADVB        &     36 &      31 \\
+				COMP        &     42 &      10 \\
+				CONJ        &     58 &      58 \\
+				GRND        &      1 &       0 \\
+				INFN        &      1 &       1 \\
+				INTJ        &     32 &      32 \\
+				NOUN        &   3808 &     145 \\
+				NPRO        &    155 &      66 \\
+				NUMR        &     16 &       1 \\
+				PRCL        &    106 &     106 \\
+				PREP        &     29 &      29 \\
+				PRTF        &    158 &       9 \\
+				PRTS        &      5 &       0 \\
+				ROMN        &     11 &      11 \\
+				VERB        &    502 &      79 \\
+				\bottomrule
+				\end{tabular}
+		\caption{Количество омонимов и ошибок по частям речи}
+		\end{center}
+	\end{table}
+
+	Наиболее често прилагательные интерпретируются как существительные (155), или как местоимения-существительные (81).
+
+	\begin{table}[h]
+		\begin{center}
+		\begin{tabular}{lllr}
+		\toprule
+		{} & corpora\_pos & morph\_pos &  count \\
+		\midrule
+		4  &        ADJF &      NOUN &    155 \\
+		5  &        ADJF &      NPRO &     81 \\
+		33 &        NOUN &      ADJF &     53 \\
+		53 &        PRCL &      ADVB &     51 \\
+		34 &        NOUN &      ADJS &     35 \\
+		46 &        NPRO &      CONJ &     32 \\
+		60 &        PREP &      ADVB &     28 \\
+		70 &        VERB &      NOUN &     27 \\
+		67 &        VERB &      ADJS &     27 \\
+		54 &        PRCL &      CONJ &     26 \\
+		\bottomrule
+		\end{tabular}
+		\end{center}
+		\caption{10 наиболее частых ошибок при разрешении частеречной омонимии}
+	\end{table}
+
+	
+	Другой результат получается если отнормировать количество ошибок распознавания каждой части речи на общее количество токенов этой части речи.
+	\begin{table}[h!]
+	\begin{center}
+	\begin{tabular}{lllrrr}
+	\toprule
+	{} & corpora\_pos & morph\_pos &  count &  total\_count &  rel\_count \\
+	\midrule
+	26 &        INFN &      VERB &      1 &            1 &   1.000000 \\
+	66 &        ROMN &      LATN &     11 &           11 &   1.000000 \\
+	60 &        PREP &      ADVB &     28 &           29 &   0.965517 \\
+	14 &        ADVB &      NOUN &     18 &           36 &   0.500000 \\
+	53 &        PRCL &      ADVB &     51 &          106 &   0.481132 \\
+	32 &        INTJ &      VERB &     14 &           32 &   0.437500 \\
+	10 &        ADJS &      NOUN &      9 &           23 &   0.391304 \\
+	24 &        CONJ &      VERB &     20 &           58 &   0.344828 \\
+	20 &        CONJ &      ADVB &     17 &           58 &   0.293103 \\
+	29 &        INTJ &      PRCL &      9 &           32 &   0.281250 \\
+	\bottomrule
+	\end{tabular}
+	\caption{10 наиболее относительно частых ошибок относительно общего числа токенов для каждой части речи}
+
+	\end{center}
+	\end{table}
+
+	Некоторые полученные пары нерепрезентативны из-за малого общего количества токенов (например INFN - VERB). Но можно заметить, что относительно общего числа токенов, морфоанализатор часто принимает наречия за сщуествительные (ADVB - NOUN). Так же заметно, что 28 предлогов-омонимов из 29 были распознаные как наречия.
+	
+
+	Пример предложения с такой ошибкой:
+	\begin{center}
+	\textit{Политическая борьба \textbf{вокруг} личности Андерсон.}
+	\end{center}
+	В этом предложении слово "вокруг"" является предлогом, но \textit{pymorphy2} распознаёт его как наречие.
+
+	В заключение мы приводим качества распознавания каждой части речи.
+ 	
+	\begin{table}[h!]
+		\begin{center}
+			\begin{tabular}{lr}
+			\toprule
+			{} &  correct\_rate \\
+			corpora\_pos &               \\
+			\midrule
+			PRTS        &         100.0 \\
+			GRND        &         100.0 \\
+			NOUN        &          96.2 \\
+			PRTF        &          94.3 \\
+			NUMR        &          93.8 \\
+			ADJF        &          84.6 \\
+			VERB        &          84.3 \\
+			COMP        &          76.2 \\
+			ADJS        &          60.9 \\
+			NPRO        &          57.4 \\
+			ADVB        &          13.9 \\
+			INFN        &           0.0 \\
+			INTJ        &           0.0 \\
+			ROMN        &           0.0 \\
+			PRCL        &           0.0 \\
+			PREP        &           0.0 \\
+			CONJ        &           0.0 \\
+			\bottomrule
+			\end{tabular}
+			\caption{Качество распознавания каждой части речи в процентах}
+		\end{center}
+	\end{table}
+	
+	Таким образом \textit{pymorphy2} с точностью близкой к 90\% разрешает омонимию по части речи для большинства слов - существительных, прилагательных, глаголов - но часто ошибается в необычных случаях, включающих в себя междометия, частицы, союзы, предлоги, наречия. Размеченных омонимов корпуса \textit{OpenCorpora} слишком мало, чтобы подробнее исследовать данные редкие случаи.
+
+	\subsection{Разрешение омонимии по морфологическим признакам}
+
+	Когда разборы по корпусу и по \textit{pymorphy2} имеют одинаковые части речи, но различные морфологические признаки, мы считаем, что это омонимия по морфологическим признакам. Например слово "стали" является омонимом по части речи.
+	Например:
+
+
+	\begin{center}
+		\textit{Анна Андерсон в \textbf{культуре}}
+	\end{center}
+
+	Для слова "культуре" \textit{OpenCorpora} предлагает следующий набор тегов: \textit{NOUN, loct, femn, sing, inan}. \textit{pymorphy2} предлагает: NOUN, datv, femn, sing, inan. Таким образом, разборы разлчиаются падежом: морфоанализатор "считает", что падеж слова дательный, но на самом деле он предложный.
+
+	Мы вычислили долю верно разрешаемых наборов тегов для каждой части речи. 
+	Для многих чачстей речи, включая существительные, количество точно разрешенных наборов тегов очень мало. 
+
+
+	\begin{table}[h!]
+		\begin{center}
+		\begin{tabular}{llrrr}
+			\toprule
+			{} & corpora\_pos &  count &  correct tokens &  correct fraction \\
+			\midrule
+			0  &        NOUN &   3663 &          367.0 &          0.100191 \\
+			1  &        ADJF &   1406 &           69.0 &          0.049075 \\
+			2  &        VERB &    423 &          423.0 &          1.000000 \\
+			3  &        PRTF &    149 &          102.0 &          0.684564 \\
+			4  &        NPRO &     89 &            0.0 &          0.000000 \\
+			5  &        COMP &     32 &           31.0 &          0.968750 \\
+			6  &        NUMR &     15 &            4.0 &          0.266667 \\
+			7  &        ADJS &     14 &           14.0 &          1.000000 \\
+			8  &        PRTS &      5 &            5.0 &          1.000000 \\
+			9  &        ADVB &      5 &            0.0 &          0.000000 \\
+			10 &        GRND &      1 &            1.0 &          1.000000 \\
+			\bottomrule
+			\end{tabular}
+
+			\caption{Доля верно разрешаемых наборов тегов для каждой части речи}
+		\end{center}
+	\end{table}
+
+	Насколько сильно отличаются наборы тегов по корпусу и по морфоанализатору?
+
+	\begin{table}[h!]
+		\begin{center}
+			\begin{tabular}{llr}
+		\toprule
+		{} & corpora\_pos &  median tag difference length \\
+		\midrule
+		0  &        ADJF &                             1 \\
+		1  &        ADJS &                             0 \\
+		2  &        ADVB &                             1 \\
+		3  &        COMP &                             0 \\
+		4  &        GRND &                             0 \\
+		5  &        NOUN &                             1 \\
+		6  &        NPRO &                             1 \\
+		7  &        NUMR &                             1 \\
+		8  &        PRTF &                             0 \\
+		9  &        PRTS &                             0 \\
+		10 &        VERB &                             0 \\
+		\bottomrule
+		\end{tabular}
+		\caption{Медиана количества различающихся тегов для каждой части речи.}
+		\end{center}
+	\end{table}
+
+	\begin{center}
+		\fbox{\adjustimage{max size={1\linewidth}{0.9\paperheight}}{img/2_3_boxplot.png}}
+    \end{center}
+
+	Оказалось, что чаще всего наборы тегов от морфоанализатора и по корпусу отличаются на один тег.
+
+	Мы проверили, какая доля наборов тегов отличаются не более, чем на один тег. 
+
+	\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{llrr}
+		\toprule
+		{} & corpora\_pos &  count &  (mostly) correct fraction \\
+		\midrule
+		0  &        NOUN &   2164 &                   0.590773 \\
+		1  &        ADJF &    925 &                   0.657895 \\
+		2  &        VERB &    423 &                   1.000000 \\
+		3  &        PRTF &    140 &                   0.939597 \\
+		4  &        NPRO &     82 &                   0.921348 \\
+		5  &        COMP &     32 &                   1.000000 \\
+		6  &        ADJS &     14 &                   0.933333 \\
+		7  &        NUMR &     12 &                   0.857143 \\
+		8  &        PRTS &      5 &                   1.000000 \\
+		9  &        ADVB &      5 &                   1.000000 \\
+		10 &        GRND &      1 &                   1.000000 \\
+		\bottomrule
+		\end{tabular}
+		\caption{Доля наборов тегов, отличающихся не более, чем на один тег.}
+		\end{center}
+	\end{table}
+
+	Можно сделать вывод, что для всех частей речи \textit{pymorphy2} разрешает набор тегов с не более чем одной ошибкой с точностью более 59\%.
+	\begin{table}[h!]
+	\begin{center}
+	\begin{tabular}{lr}
+		\toprule
+		grammemes diff &  count \\
+		\midrule
+		\{'plur', 'nomn'\} &     688 \\
+		\{'accs'\}         &     639 \\
+		\{'loct'\}         &     542 \\
+		\{'nomn'\}         &     469 \\
+		\{'gent'\}         &     293 \\
+		\{'plur', 'accs'\} &     281 \\
+		\{'datv'\}         &     210 \\
+		\{'inan', 'accs'\} &     208 \\
+		\{'neut'\}         &     164 \\
+		\{'ablt'\}         &     131 \\
+		\bottomrule
+		\end{tabular}
+		\caption{10 наиболее часто встречающихся ошибок при распознавании}
+		\end{center}
+	\end{table}
+
+
+	\begin{table}[h!]
+		\begin{center}
+			\begin{tabular}{lllr}
+			\toprule
+			{} & corpora\_pos &            grammemes diff &  count \\
+			\midrule
+			185 &        NOUN &  \{'plur', 'nomn'\} &    688 \\
+			112 &        NOUN &          \{'accs'\} &    606 \\
+			165 &        NOUN &          \{'nomn'\} &    412 \\
+			168 &        NOUN &  \{'plur', 'accs'\} &    281 \\
+			143 &        NOUN &          \{'loct'\} &    265 \\
+			33  &        ADJF &          \{'loct'\} &    249 \\
+			32  &        ADJF &  \{'inan', 'accs'\} &    201 \\
+			138 &        NOUN &          \{'gent'\} &    184 \\
+			122 &        NOUN &          \{'datv'\} &    155 \\
+			45  &        ADJF &          \{'neut'\} &    153 \\
+			\bottomrule
+			\end{tabular}
+			\caption{10 наиболее часто встречающихся ошибок при распознавании по частям речи}
+		\end{center}
+	\end{table}
+
+	\begin{table}[h!]
+		\begin{center}
+		\begin{tabular}{lllr}
+			\toprule
+			{} & corpora\_pos &            grammemes diff &  count \\
+			\midrule
+			6 &        NOUN &  \{'plur', 'nomn'\} &    688 \\
+			5 &        ADJF &          \{'loct'\} &    249 \\
+			4 &        NPRO &          \{'gent'\} &     39 \\
+			3 &        PRTF &          \{'loct'\} &     12 \\
+			1 &        ADVB &          \{'Prdx'\} &      5 \\
+			2 &        NUMR &          \{'loct'\} &      5 \\
+			0 &        COMP &          \{'Qual'\} &      1 \\
+			\bottomrule
+			\end{tabular}
+			\caption{Наиболее часто встречающиеся ошибки по частям речи}
+		\end{center}
+	\end{table}
+
+	Наибольшие проблемы возникают при разрешении множественного числа существительных, именительного падежа существительных, предложного падежа прилагательных, родительного падежа местоимений.  
+
+	\subsection{Разрешение омонимии по лемме}
+
+	В случае, если лемма слова по морфоанализатору и по корпусу различается, но часть речи и морфологические признаки одинаковы, мы называем это омонимией по лемме.
+	Например:
+	\begin{center}
+		\textit{А шанса на счастье \textbf{может} уже и не быть.}
+	\end{center}
+	Слово "может" может иметь лемму "мочь" или "могу", но в любом случае это глагол.
+
+	Омонимия по лемме это редкое явление.
+	Всего было найдено \textbf{656} таких омонимов.
+
+	\begin{center}
+		\fbox{\adjustimage{max size={1\linewidth}{0.9\paperheight}}{img/2_4_bar.png}}
+    \end{center}
+
+    Было обнаружено, что большинство омонимов по лемме являются глаголами.
+
+    \begin{center}
+		\fbox{\adjustimage{max size={1\linewidth}{0.9\paperheight}}{img/2_4_bar_2.png}}
+    \end{center}
+
+
+	\section{Заключение}
+
+	В ходе исследования мы оценили качество разрешения морфологической омонимии морфоанализатором \textit{pymorphy2}. Мы рассмотрели омонимию по части речи, по морфологическим признакам и по лемме. Можно сделать вывод, что в большинстве случаев точность разрешения \textit{pymorphy2} достаточно высока. Возникают проблемы при работе со сложными и редкими случаями, например при различении наречий и существительных. Полученные данные могут быть использованы для выявления "проблемных" ситуаций и улучшения качества разрешенияы. 
+ 
+\end{document}
